@@ -2,7 +2,46 @@
     <aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
       <div class="mdc-drawer__header">
         <a href="index.html" class="brand-logo">
-          <img src="{{ asset('public/images/logo.svg')}}" alt="logo">
+        <div style="display: flex; align-items: center;">
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 64 64" 
+        width="80" 
+        height="80" 
+        fill="none">
+        <circle 
+            cx="32" 
+            cy="32" 
+            r="30" 
+            stroke="#9B1FE8" 
+            stroke-width="4" 
+            fill="white"/>
+        <path 
+            d="M32 16V32L44 36" 
+            stroke="#9B1FE8" 
+            stroke-width="4" 
+            stroke-linecap="round" 
+            stroke-linejoin="round"/>
+        <circle 
+            cx="32" 
+            cy="32" 
+            r="3" 
+            fill="#9B1FE8"/>
+        <path 
+            d="M32 2C15.34 2 2 15.34 2 32c0 16.66 13.34 30 30 30s30-13.34 30-30C62 15.34 48.66 2 32 2zm0 58c-15.75 0-28.5-12.75-28.5-28.5S16.25 3 32 3 60.5 15.75 60.5 32 47.75 60 32 60z" 
+            fill="#9B1FE8" 
+            opacity="0.1"/>
+    </svg>
+    <h1 style="margin-left: 10px; color: #fff; font-family: 'Reem Kufi Fun', sans-serif; font-size: 18px;font-weight:bold">Task Ticketing Platform</h1>
+</div>
+
+
+
+
+
+
+
+
         </a>
       </div>
       <div class="mdc-drawer__content">
@@ -15,7 +54,7 @@
             <div class="mdc-list-item mdc-drawer-item">
               <a class="mdc-drawer-link" href="index.html">
                 <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">home</i>
-                Dashboard
+                Dashboardaa
               </a>
             </div>
             <div class="mdc-list-item mdc-drawer-item">
@@ -24,114 +63,61 @@
                 Forms
               </a>
             </div>
-            <div class="mdc-list-item mdc-drawer-item">
+              <div class="mdc-list-item mdc-drawer-item">
               <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="ui-sub-menu">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">dashboard</i>
-                UI Features
+                  <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">dashboard</i>
+                Roles
                 <i class="mdc-drawer-arrow material-icons">chevron_right</i>
               </a>
-              <div class="mdc-expansion-panel" id="ui-sub-menu">
+              <div class="mdc-expansion-panel" id="ui-sub-menu" style="display: none;"> <!-- Start hidden -->
                 <nav class="mdc-list mdc-drawer-submenu">
                   <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/ui-features/buttons.html">
-                      Buttons
+                    <a class="mdc-drawer-link" href="{{ route('roles.index') }}">
+                      List
                     </a>
                   </div>
                   <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/ui-features/typography.html">
-                      Typography
+                    <a class="mdc-drawer-link" href="{{ route('roles.create') }}">
+                      Create
                     </a>
                   </div>
                 </nav>
               </div>
             </div>
             <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-drawer-link" href="pages/tables/basic-tables.html">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">grid_on</i>
-                Tables
-              </a>
-            </div>
-            <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-drawer-link" href="pages/charts/chartjs.html">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">pie_chart_outlined</i>
-                Charts
-              </a>
-            </div>
-            <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="sample-page-submenu">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">pages</i>
-                Sample Pages
+              <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="ui-sub-menu1">
+                  <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">dashboard</i>
+              Users
                 <i class="mdc-drawer-arrow material-icons">chevron_right</i>
               </a>
-              <div class="mdc-expansion-panel" id="sample-page-submenu">
+              <div class="mdc-expansion-panel" id="ui-sub-menu1" style="display: none;"> <!-- Start hidden -->
                 <nav class="mdc-list mdc-drawer-submenu">
                   <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/blank-page.html">
-                      Blank Page
+                    <a class="mdc-drawer-link" href="{{ route('users.index') }}">
+                      List
                     </a>
                   </div>
                   <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/403.html">
-                      403
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/404.html">
-                      404
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/500.html">
-                      500
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/505.html">
-                      505
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/login.html">
-                      Login
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/register.html">
-                      Register
+                    <a class="mdc-drawer-link" href="{{ route('users.create') }}">
+                      Create
                     </a>
                   </div>
                 </nav>
               </div>
             </div>
-            <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-drawer-link" href="https://www.bootstrapdash.com/demo/material-admin-free/jquery/documentation/documentation.html" target="_blank">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">description</i>
-                Documentation
-              </a>
-            </div>
+
+                        
+   
+   
+      
           </nav>
         </div>
         <div class="profile-actions">
           <a href="javascript:;">Settings</a>
           <span class="divider"></span>
-          <a href="javascript:;">Logout</a>
+          <a href="{{ route('logout') }}">Logout</a>
         </div>
-        <div class="mdc-card premium-card">
-          <div class="d-flex align-items-center">
-            <div class="mdc-card icon-card box-shadow-0">
-              <i class="mdi mdi-shield-outline"></i>
-            </div>
-            <div>
-              <p class="mt-0 mb-1 ml-2 font-weight-bold tx-12">Material Dash</p>
-              <p class="mt-0 mb-0 ml-2 tx-10">Pro available</p>
-            </div>
-          </div>
-          <p class="tx-8 mt-3 mb-1">More elements. More Pages.</p>
-          <p class="tx-8 mb-3">Starting from $25.</p>
-          <a href="https://www.bootstrapdash.com/product/material-design-admin-template/" target="_blank">
-						<span class="mdc-button mdc-button--raised mdc-button--white">Upgrade to Pro</span>
-					</a>
-        </div>
+  
       </div>
     </aside>
     <!-- partial -->

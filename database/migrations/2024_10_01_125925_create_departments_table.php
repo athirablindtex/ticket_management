@@ -9,12 +9,13 @@ class CreateDepartmentsTable extends Migration
     public function up()
     {
         Schema::create('departments', function (Blueprint $table) {
-            $table->id(); // Auto-incrementing ID
-            $table->string('name')->unique(); // Name of the department (must be unique)
-            $table->timestamps(); // Created at and updated at timestamps
-            $table->softDeletes(); // Soft delete functionality
+            $table->id();
+            $table->string('name')->unique(); // Department name
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Foreign key referencing users table
+            $table->timestamps();
         });
     }
+
 
     public function down()
     {

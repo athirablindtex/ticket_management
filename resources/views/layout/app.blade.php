@@ -217,6 +217,7 @@
       </div>
     </div>
   </div>
+
   <!-- plugins:js -->
   <script src="{{ asset('public/vendors/js/vendor.bundle.base.js')}}"></script>
   <!-- endinject -->

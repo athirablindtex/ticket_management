@@ -6,10 +6,12 @@
 <link rel="stylesheet" href="{{ asset('vendors/jvectormap/jquery-jvectormap.css') }}">
 @endpush
 <div class="mdc-layout-grid__inner">
+
+
               <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
                 <div class="mdc-card info-card info-card--success">
                   <div class="card-inner">
-                    <h5 class="card-title">Borrowed</h5>
+                    <h5 class="card-title"> <?php echo $showPopup;?></h5>
                     <h5 class="font-weight-light pb-2 mb-s1 border-bottom">$62,0076.00</h5>
                     <p class="tx-12 text-muted">48% target reached</p>
                     <div class="card-icon-wrapper">
@@ -266,10 +268,246 @@
               </div>
             </div>
 
+            @if($showPopup)
+            <div class="modal fade" id="specialDayPopup" tabindex="-1" aria-labelledby="popupLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content" style="background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(200, 200, 250, 0.9)); border-radius: 20px;">
+                        <!-- Confetti Canvas -->
+               
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="popupLabel">Happy Special Day!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <canvas id="canvas" class="confetti"></canvas>
+                        <div class="modal-body" style="position: relative;">
+                            <!-- Wish Card -->
+                            <div class="wish-card">
+                                <!-- User's Photo -->
+                                <img src="{{ $user->photoUrl }}" alt="User Photo" class="user-photo">
+                                <!-- Message Heading -->
+                                <h1>
+                                    @if($isBirthday)
+                                        🎉 Happy Birthday, {{ $user->name }}!
+                                    @elseif($isAnniversary)
+                                        🎉 Happy Work Anniversary, {{ $user->name }}!
+                                    @endif
+                                </h1>
+                                <p>We hope you have a fantastic day filled with joy and wonderful memories!</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+    
+          <style>
+            @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Outfit", sans-serif;
+}
+
+.confetti {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1; /* Behind modal content */
+    }
+
+    /* Wish Card Styling */
+    .wish-card {
+        background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2; /* Above the canvas */
+    }
+
+    /* User Photo Styling */
+    .user-photo {
+        width: 120px; /* Size of the user photo */
+        height: 120px;
+        border-radius: 50%; /* Circular photo */
+        margin-bottom: 15px;
+        border: 5px solid #fff; /* White border */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Heading and Paragraph Styles */
+    .wish-card h1 {
+        font-size: 2.5rem; /* Size of the heading */
+        color: #333;
+        margin-bottom: 10px; /* Space below heading */
+    }
+
+    .wish-card p {
+        font-size: 1.2rem; /* Size of the paragraph */
+        color: #666;
+        line-height: 1.5; /* Line spacing */
+    }
+
+    /* Button Styling */
+    .btn-primary {
+        background-color: #6f42c1; /* Primary color */
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #5a32a1; /* Darker shade on hover */
+    }
+          </style>
+    
+          
+
+            <!-- jQuery to Show Modal -->
+            <script>
+                $(document).ready(function() {
+                  $('#specialDayPopup').modal('show');
+                });
+
+                //-----------Var Inits--------------
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+cx = ctx.canvas.width / 2;
+cy = ctx.canvas.height / 2;
+
+let confetti = [];
+const confettiCount = 300;
+const gravity = 0.5;
+const terminalVelocity = 5;
+const drag = 0.075;
+const colors = [
+{ front: 'red', back: 'darkred' },
+{ front: 'green', back: 'darkgreen' },
+{ front: 'blue', back: 'darkblue' },
+{ front: 'yellow', back: 'darkyellow' },
+{ front: 'orange', back: 'darkorange' },
+{ front: 'pink', back: 'darkpink' },
+{ front: 'purple', back: 'darkpurple' },
+{ front: 'turquoise', back: 'darkturquoise' }];
+
+
+//-----------Functions--------------
+resizeCanvas = () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  cx = ctx.canvas.width / 2;
+  cy = ctx.canvas.height / 2;
+};
+
+randomRange = (min, max) => Math.random() * (max - min) + min;
+
+initConfetti = () => {
+  for (let i = 0; i < confettiCount; i++) {
+    confetti.push({
+      color: colors[Math.floor(randomRange(0, colors.length))],
+      dimensions: {
+        x: randomRange(10, 20),
+        y: randomRange(10, 30) },
+
+      position: {
+        x: randomRange(0, canvas.width),
+        y: canvas.height - 1 },
+
+      rotation: randomRange(0, 2 * Math.PI),
+      scale: {
+        x: 1,
+        y: 1 },
+
+      velocity: {
+        x: randomRange(-25, 25),
+        y: randomRange(0, -50) } });
+
+
+  }
+};
+
+//---------Render-----------
+render = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  confetti.forEach((confetto, index) => {
+    let width = confetto.dimensions.x * confetto.scale.x;
+    let height = confetto.dimensions.y * confetto.scale.y;
+
+    // Move canvas to position and rotate
+    ctx.translate(confetto.position.x, confetto.position.y);
+    ctx.rotate(confetto.rotation);
+
+    // Apply forces to velocity
+    confetto.velocity.x -= confetto.velocity.x * drag;
+    confetto.velocity.y = Math.min(confetto.velocity.y + gravity, terminalVelocity);
+    confetto.velocity.x += Math.random() > 0.5 ? Math.random() : -Math.random();
+
+    // Set position
+    confetto.position.x += confetto.velocity.x;
+    confetto.position.y += confetto.velocity.y;
+
+    // Delete confetti when out of frame
+    if (confetto.position.y >= canvas.height) confetti.splice(index, 1);
+
+    // Loop confetto x position
+    if (confetto.position.x > canvas.width) confetto.position.x = 0;
+    if (confetto.position.x < 0) confetto.position.x = canvas.width;
+
+    // Spin confetto by scaling y
+    confetto.scale.y = Math.cos(confetto.position.y * 0.1);
+    ctx.fillStyle = confetto.scale.y > 0 ? confetto.color.front : confetto.color.back;
+
+    // Draw confetti
+    ctx.fillRect(-width / 2, -height / 2, width, height);
+
+    // Reset transform matrix
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+  });
+
+  // Fire off another round of confetti
+  if (confetti.length <= 10) initConfetti();
+
+  window.requestAnimationFrame(render);
+};
+
+//---------Execution--------
+initConfetti();
+render();
+
+//----------Resize----------
+window.addEventListener('resize', function () {
+  resizeCanvas();
+});
+
+//------------Click------------
+window.addEventListener('click', function () {
+  initConfetti();
+});
+            </script>
+        @endif
+
             @endsection
             @push('scripts')
-            <script src="{{ asset('vendors/chartjs/Chart.min.js')}}"></script>
+     
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.js"></script>
+            <!-- Bootstrap JS (minified) -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            {{-- <script src="{{ asset('vendors/chartjs/Chart.min.js')}}"></script>
   <script src="{{ asset('vendors/jvectormap/jquery-jvectormap.min.js')}}"></script>
-  <script src="{{ asset('vendors/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
+  <script src="{{ asset('vendors/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script> --}}
 
   @endpush
